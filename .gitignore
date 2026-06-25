@@ -15,15 +15,6 @@ __pycache__/
 # Environment
 .env
 
-# Data
-data/raw/*
-!data/raw/.gitkeep
-
-data/processed/*
-!data/processed/.gitkeep
-
-data/external/*
-!data/external/.gitkeep
 
 # Models
 models/*
