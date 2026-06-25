@@ -1,0 +1,190 @@
+
+================================================================================
+LOUNGE ELIGIBILITY LOOKUP TABLE - JUSTIFICATION DOCUMENT
+British Airways Data Science Job Simulation - Task 1
+Heathrow Terminal 3 Lounge Demand Forecasting
+================================================================================
+
+1. HOW YOU CHOSE TO GROUP THE FLIGHTS
+--------------------------------------------------------------------------------
+
+Flight Grouping Strategy:
+We grouped flights using a combination of two key dimensions:
+
+   a) HAUL (Short-haul vs Long-haul)
+   b) TIME_PERIOD (Morning, Midday, Afternoon, Evening)
+
+This creates categories such as:
+   - SHORT_Morning_(06:00-11:59)
+   - LONG_Evening_(17:00-23:59)
+   - SHORT_Midday_(12:00-16:59)
+   etc.
+
+Alternative groupings considered:
+   - By region (Europe, North America, Asia, Middle East)
+   - By aircraft type
+   - By day of week
+   - By specific time slots
+
+RATIONALE:
+The HAUL + TIME_PERIOD combination was selected because:
+1. It captures the most significant variation in passenger behavior
+2. It's simple enough to apply to future schedules
+3. It doesn't require detailed flight-specific information
+4. It aligns with natural travel patterns (business vs leisure travelers)
+
+
+2. WHY YOUR GROUPINGS MAKE SENSE FOR THIS TYPE OF MODELING
+--------------------------------------------------------------------------------
+
+A) HAUL (Short vs Long):
+   - Long-haul flights typically have higher premium cabin ratios
+   - Long-haul attracts more business travelers and high-tier loyalty members
+   - Short-haul is predominantly economy with fewer premium passengers
+   - Different aircraft configurations (long-haul = more business/first class)
+
+B) TIME_OF_DAY:
+   - MORNING (06:00-11:59): 
+     * High business traveler concentration
+     * Premium passengers prefer early flights for same-day meetings
+     * Higher Tier 1 and Tier 2 eligibility expected
+
+   - MIDDAY/AFTERNOON (12:00-16:59):
+     * Mix of business and leisure travelers
+     * Moderate premium passenger ratios
+     * Balanced tier distribution
+
+   - EVENING (17:00-23:59):
+     * Leisure travelers dominate
+     * Some premium leisure travelers
+     * Lower Tier 1, moderate Tier 2-3
+
+C) COMBINED APPROACH:
+   - Captures interaction effects (e.g., long-haul morning flights 
+     have different profiles than short-haul morning flights)
+   - Provides enough granularity without overfitting
+   - Easy to apply to new schedules
+
+
+3. THE ASSUMPTIONS YOU MADE AND THEIR REASONING
+--------------------------------------------------------------------------------
+
+ASSUMPTION 1: Percentages are based on eligible passengers, not total seats
+   - We calculate tier percentages as a proportion of total eligible passengers
+   - This reflects the actual lounge user distribution
+   - More accurate than using total seat capacity
+
+ASSUMPTION 2: Historical patterns predict future behavior
+   - The summer 2025 schedule is representative of future operations
+   - Passenger mix by flight type remains relatively stable
+   - BA's loyalty program structure remains consistent
+
+ASSUMPTION 3: Load factor is approximately 10% for estimation purposes
+   - Used for sample calculations only
+   - Actual load factors would be provided by operations team
+   - The lookup table provides percentages, not absolute numbers
+
+ASSUMPTION 4: Tier eligibility is mutually exclusive
+   - Each passenger counted in only one tier
+   - In reality, some passengers may qualify for multiple tiers
+   - We use their highest eligible tier
+
+ASSUMPTION 5: Regional variations are captured within haul/time categories
+   - We didn't create separate categories for each region
+   - Regional differences are assumed to be secondary to haul and time effects
+   - This keeps the model simple and generalizable
+
+ASSUMPTION 6: Tier 1 represents potential Concorde Room users
+   - Even though no Concorde Room exists at T3 currently
+   - These passengers represent the highest-value customers
+   - Important for future capacity planning
+
+
+4. HOW YOUR MODEL CAN SCALE TO FUTURE OR UNKNOWN SCHEDULES
+--------------------------------------------------------------------------------
+
+SCALABILITY FEATURES:
+
+A) No Flight-Specific Dependencies:
+   - The model doesn't require specific flight numbers
+   - No dependence on aircraft registration or exact departure times
+   - Works with any flight that can be categorized by haul and time
+
+B) Simple Categorization Rules:
+   To apply to a new schedule:
+   1. Classify each flight as SHORT or LONG haul
+   2. Categorize departure time as Morning/Midday/Afternoon/Evening
+   3. Look up the corresponding percentages from the table
+   4. Multiply by expected passenger numbers
+
+C) Flexible Time Windows:
+   - Time categories are broad enough to accommodate schedule changes
+   - Can be adjusted if needed (e.g., redefine "Morning" as 05:00-11:59)
+   - Doesn't break with minor time shifts
+
+D) Region-Agnostic:
+   - Works for any destination
+   - Only requires haul classification
+   - Can accommodate new routes without model updates
+
+E) Easy to Update:
+   - If new data becomes available, simply recalculate percentages
+   - Can add new categories if patterns emerge
+   - Backward compatible with historical analysis
+
+F) Implementation Example:
+
+   New Flight: BA1234, Departs 08:30 to New York (JFK)
+
+   Step 1: Classify haul = LONG (transatlantic)
+   Step 2: Classify time = Morning (06:00-11:59)
+   Step 3: Category = LONG_Morning_(06:00-11:59)
+   Step 4: Look up percentages:
+           Tier 1: X%
+           Tier 2: Y%
+           Tier 3: Z%
+   Step 5: Apply to expected passenger count
+
+G) Future Enhancements:
+   - Could add seasonal adjustments (summer vs winter schedules)
+   - Could incorporate day-of-week effects (weekday vs weekend)
+   - Could add special event flags (holidays, major events)
+   - Could integrate with real-time booking data
+
+
+================================================================================
+TECHNICAL NOTES
+================================================================================
+
+Data Source: British Airways Summer Schedule 2025
+Analysis Period: April - October 2025
+Total Flights Analyzed: 10000
+Total Seats: 2250069
+
+Methodology:
+- Grouped flights by HAUL and TIME_PERIOD
+- Calculated tier eligibility percentages for each group
+- Validated against actual eligible passenger counts
+- Created reusable lookup table for future application
+
+Model Performance:
+- Captures 8 distinct flight categories
+- Based on actual BA operational data
+- Percentages sum to 100% for each category
+- Validated across multiple time periods and routes
+
+================================================================================
+CONTACT & DOCUMENTATION
+================================================================================
+
+This lookup table and justification was created as part of the British Airways
+Data Science Job Simulation on Forage.
+
+For questions or updates, refer to:
+- Project Repository: github.com/beingAnujChaudhary/ba-predictive-analytics
+- Documentation: docs/task1.md
+- Lookup Table: outputs/tables/lounge_eligibility_lookup_table.xlsx
+
+Generated: 2026-06-26 01:00:58
+
+================================================================================
