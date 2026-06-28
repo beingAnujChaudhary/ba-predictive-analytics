@@ -100,7 +100,7 @@ ASSUMPTION 6: Tier 1 represents potential Concorde Room users
    - Important for future capacity planning
 
 
-4. HOW YOUR MODEL CAN SCALE TO FUTURE OR UNKNOWN SCHEDULES
+4. HOW OUR MODEL CAN SCALE TO FUTURE OR UNKNOWN SCHEDULES
 --------------------------------------------------------------------------------
 
 SCALABILITY FEATURES:
