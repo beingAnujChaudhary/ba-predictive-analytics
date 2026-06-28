@@ -144,30 +144,6 @@ Instead of writing all logic inside Jupyter Notebooks, this project utilizes a *
 
 ---
 
-## Results
-
-### Task 1 Results
-- Successfully mapped **[Insert Number]** distinct customer segments to lounge eligibility.
-- Created a scalable lookup table that reduces capacity planning time by automating eligibility checks against flight schedules.
-
-### Task 2 Results
-- **Best Performing Model:** [e.g., XGBoost Classifier]
-- **Accuracy:** [XX.X%]
-- **Precision:** [XX.X%]
-- **Recall:** [XX.X%] *(Highlight this, as catching potential buyers is key)*
-- **ROC-AUC:** [0.XXX]
-
-*(Note: Update these metrics with your actual model outputs once you complete the notebooks!)*
-
-## Business Insights
-1. **Optimizing Lounge Operations:** By integrating the Task 1 lookup table with live flight manifests, BA can dynamically adjust lounge staffing and catering. This prevents overcrowding during peak long-haul departure windows, directly improving premium passenger satisfaction.
-2. **Targeted Marketing Campaigns:** Feature importance analysis from Task 2 revealed that **[Insert Top Feature, e.g., previous booking history / loyalty tier]** are the strongest predictors of holiday purchases. Marketing teams should shift budget away from generic ads and heavily target high-loyalty customers who haven't booked a holiday in the last 6 months.
-
-## Future Improvements
-- **Real-time Integration:** Deploy the Task 2 prediction model via a FastAPI REST endpoint to integrate directly with BA's CRM for real-time marketing triggers.
-- **Dynamic Capacity Planning:** Integrate real-time flight delay data into the Task 1 model to adjust lounge capacity forecasts dynamically on the day of travel.
-- **Advanced Tuning:** Implement hyperparameter optimization (e.g., using Optuna) to further squeeze performance out of the XGBoost model.
-
 ## Acknowledgements
 - **British Airways** for providing the business context, datasets, and this incredible learning opportunity.
 - **Forage** for hosting and facilitating this virtual experience program.
